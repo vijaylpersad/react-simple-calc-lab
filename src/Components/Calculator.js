@@ -1,89 +1,90 @@
-import React, { Component } from 'react'
+import { useState } from 'react'
 
-export default class Calculator extends Component {
-	state = {
-		operator: "+",
-		num1: 0,
-		num2: 0,
-		result: ''
+export default function Calculator() {
+  const [operator, setOperator] = useState('+')
+  const [numbers, setNumbers] = useState({
+    num1: 0,
+    num2: 0
+  })
+  const [result, setResult] = useState('')
+
+	const setNum = (e, num) => {
+    setNumbers({ 
+      ...numbers,  
+      [num]: e.target.value
+    })
 	}
 
-	setNum = (e, num) => {
-		this.setState({ 
-			[num]: e.target.value
-		})
-	}
+	const calculate = (num1, num2) => {
 
-	calculate = (num1, num2) => {
+		const int1 = Number(num1)
+		const int2 = Number(num2)
 
-		let int1 = Number(num1)
-		let int2 = Number(num2)
-		let result = 0
-		switch (this.state.operator){
+		switch (operator){
 			case '+':
-				result = int1 + int2
+				setResult(int1 + int2)
 				break
-
-			case '-':
-				result = int1 - int2
+        
+      case '-':
+				setResult(int1 - int2)
 				break
-
-			case '*':
-				result = int1 * int2
+        
+      case '*':
+				setResult(int1 * int2)
 				break
-
-			case '/':
-				result = int1 / int2
+        
+      case '/':
+          setResult(int1 / int2)
 				break
 			
 			default:
-				break
+        console.log(`${operator} is not a valid operator!`)
 		}
-
-		this.setState({
-			result: result
-		})
 	}
 
-	setOp = (e) => {
-		this.setState({
-			operator: e.target.value
-		})
-	}
+	// const setOp = (e) => {
+	// 	this.setState({
+	// 		operator: e.target.value
+	// 	})
+	// }
 
-	render(){
-		return (
-			<div className="container">
-				<h1>Add with React!</h1>
+  return (
+    <div className="container">
+      <h1>Add with React!</h1>
 
-				<div className="add">
+      <div className="add">
 
-					<input 
-					type="number"
-					name="num1" 
-					placeholder="Enter your first number" 
-					value={this.state.num1}
-					onChange={ (e) => this.setNum(e, 'num1')}
-					 />
+        <input 
+          type="number"
+          name="num1" 
+          placeholder="Enter your first number" 
+          value={numbers.num1}
+          onChange={ e => setNum(e, 'num1')}
+        />
 
-					<span>{this.state.operator}</span>
-					
-					<input 
-					type="number"
-					name="num2" 
-					placeholder="Enter your second number" 
-					value={this.state.num2}
-					onChange={ (e) => this.setNum(e, 'num2')}
-					 />
+        <span>{operator}</span>
+        
+        <input 
+          type="number"
+          name="num2" 
+          placeholder="Enter your second number" 
+          value={numbers.num2}
+          onChange={ e => setNum(e, 'num2')}
+        />
 
-					<button onClick={ () => this.calculate(this.state.num1, this.state.num2) }>=</button>
-					<h3>{this.state.result}</h3>
-					<button name="plus" value="+" onClick={(e)=> this.setOp(e)}>+</button>
-					<button name="sub" value="-" onClick={(e)=> this.setOp(e)}>-</button>
-					<button name="mult" value="*" onClick={(e)=> this.setOp(e)}>*</button>
-					<button name="div" value="/" onClick={(e)=> this.setOp(e)}>/</button>
-				</div>
-			</div>
-		)
-	}
+        <button onClick={ () => calculate(numbers.num1, numbers.num2) }>=</button>
+
+        <h3>{result}</h3>
+
+        <button name="plus" value="+" onClick={e => setOperator(e.target.value)}>+</button>
+
+        <button name="sub" value="-" onClick={e => setOperator(e.target.value)}>-</button>
+
+        <button name="mult" value="*" onClick={e => setOperator(e.target.value)}>*</button>
+
+        <button name="div" value="/" onClick={e => setOperator(e.target.value)}>/</button>
+      </div>
+    </div>
+  )
+
 }
