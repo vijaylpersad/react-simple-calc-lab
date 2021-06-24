@@ -1,57 +1,55 @@
-import React, { Component } from 'react'
+import { useState } from 'react'
 
-export default class Calculator extends Component {
-	state = {
-		operator: "+",
-		num1: 0,
-		num2: 0,
-		result: ''
-	}
+export default function Calculator() {
 
-	setNum = (e, num) => {
-		this.setState({ 
+  const [operator, setOperator] = useState("+")
+  const [result, setResult] = useState('')
+  const [numbers, setNumbers] = useState({
+    num1: 0,
+    num2: 0
+  })
+
+
+	const setNum = (e, num) => {
+		setNumbers({ 
+      ...numbers,
 			[num]: e.target.value
 		})
 	}
 
-	calculate = (num1, num2) => {
+	const calculate = (num1, num2) => {
 
 		let int1 = Number(num1)
 		let int2 = Number(num2)
-		let result = 0
-		switch (this.state.operator){
+		let math = 0
+		switch (operator){
 			case '+':
-				result = int1 + int2
+				math = int1 + int2
 				break
 
 			case '-':
-				result = int1 - int2
+				math = int1 - int2
 				break
 
 			case '*':
-				result = int1 * int2
+				math = int1 * int2
 				break
 
 			case '/':
-				result = int1 / int2
+				math = int1 / int2
 				break
 			
 			default:
 				break
 		}
 
-		this.setState({
-			result: result
-		})
+    setResult(math)
 	}
 
-	setOp = (e) => {
-		this.setState({
-			operator: e.target.value
-		})
+	const setOp = (e) => {
+    setOperator(e.target.value)
 	}
 
-	render(){
 		return (
 			<div className="container">
 				<h1>Add with React!</h1>
@@ -62,28 +60,28 @@ export default class Calculator extends Component {
             type="number"
             name="num1" 
             placeholder="Enter your first number" 
-            value={this.state.num1}
-            onChange={ (e) => this.setNum(e, 'num1')}
+            value={numbers.num1}
+            onChange={ (e) => setNum(e, 'num1')}
 					 />
 
-					<span>{this.state.operator}</span>
+					<span>{operator}</span>
 					
 					<input 
             type="number"
             name="num2" 
             placeholder="Enter your second number" 
-            value={this.state.num2}
-            onChange={ (e) => this.setNum(e, 'num2')}
+            value={numbers.num2}
+            onChange={ (e) => setNum(e, 'num2')}
 					 />
 
-					<button onClick={ () => this.calculate(this.state.num1, this.state.num2) }>=</button>
-					<h3>{this.state.result}</h3>
-					<button name="plus" value="+" onClick={(e)=> this.setOp(e)}>+</button>
-					<button name="sub" value="-" onClick={(e)=> this.setOp(e)}>-</button>
-					<button name="mult" value="*" onClick={(e)=> this.setOp(e)}>*</button>
-					<button name="div" value="/" onClick={(e)=> this.setOp(e)}>/</button>
+					<button onClick={ () => calculate(numbers.num1, numbers.num2) }>=</button>
+					<h3>{result}</h3>
+					<button name="plus" value="+" onClick={(e)=> setOp(e)}>+</button>
+					<button name="sub" value="-" onClick={(e)=> setOp(e)}>-</button>
+					<button name="mult" value="*" onClick={(e)=> setOp(e)}>*</button>
+					<button name="div" value="/" onClick={(e)=> setOp(e)}>/</button>
 				</div>
 			</div>
 		)
-	}
+
 }
