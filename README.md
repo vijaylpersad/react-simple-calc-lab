@@ -1,4 +1,4 @@
-# ![GA Logo](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Lab: Simple Calc
+# ![GA Logo](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Simple Calc
 
 Now, it's time for you to check back on everything! You will be building a calculator with React, and only minimal instructions have been provided for you to really think about what's happening.
 
@@ -6,7 +6,7 @@ At first, your calculator will just add 2 numbers together when they are typed i
 
 ## Set Up
 
-Like usual, use `create-react-app` to make a new project.
+Fork & Clone this repo, cd into repo, run `npx create-react-app .` to turn your cloned repo into a react app.
 
 ## Step 1
 
